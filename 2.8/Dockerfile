@@ -1,5 +1,6 @@
 FROM ubuntu:trusty
-MAINTAINER winsent<pipetc@gmail.com>
+MAINTAINER jailbirt@interactar.com
+#Thanks to winsent<pipetc@gmail.com>
 
 
 ENV DEBIAN_FRONTEND noninteractive
