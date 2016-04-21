@@ -1,0 +1,35 @@
+version: '2'
+services:
+#Maintainer: jailbirt.
+#By default I override your local node_modules directory.
+#This is intended for working without installing dependencies by using development images.
+  
+#Geoserver
+  geoserver1:
+    image: interactar/geodocker
+    container_name: geodocker
+    hostname: geodocker
+    domainname: webgis.frontec.net
+    ports:
+      - "8080:8080"
+    #Get data_dir from docker outside.
+    volumes:
+       - ./data-dir:/opt/geoserver/data_dir
+    networks:
+      - webgis
+    environment:
+      - DEBIAN_FRONTEND noninteractive
+      - GDAL_PATH /usr/share/gdal
+      - GEOSERVER_HOME /opt/geoserver
+      - JAVA_HOME /usr
+      - GDAL_DATA $GDAL_PATH/1.10
+      - PATH $GDAL_PATH:$PATH
+      - LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/lib/jni:/usr/share/java
+    #This command override default initialization for development process, which is npm run start ;)
+    command: 
+      - export DEBIAN_FRONTEND=noninteractive
+      - dpkg-divert --local --rename --add /sbin/initctl
+
+networks:
+  webgis:
+     driver: bridge
