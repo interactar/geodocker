@@ -25,9 +25,9 @@ services:
       - GDAL_DATA $GDAL_PATH/1.10
       - PATH $GDAL_PATH:$PATH
       - LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/lib/jni:/usr/share/java
-    #This command override default initialization for development process, which is npm run start ;)
+      - DEBIAN_FRONTEND=noninteractive
+
     command: 
-      - export DEBIAN_FRONTEND=noninteractive
       - dpkg-divert --local --rename --add /sbin/initctl
 
 networks:
