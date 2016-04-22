@@ -27,8 +27,8 @@ services:
       - LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/lib/jni:/usr/share/java
       - DEBIAN_FRONTEND=noninteractive
 
-    command: 
-      - dpkg-divert --local --rename --add /sbin/initctl
+  #    command: 
+            # - dpkg-divert --local --rename --add /sbin/initctl
 
 networks:
   webgis:
