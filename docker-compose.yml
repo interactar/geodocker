@@ -39,14 +39,14 @@ services:
             - "5432:5432"
     volumes:
       - ./postgres_data:/var/lib/postgresql
+      - ./postgres_etc/pg_hba.conf:/etc/postgresql/9.4/main/pg_hba.conf
     environment:
       - -e POSTGRES_USER=docker
         -e POSTGRES_PASS=docker
     networks:
       - webgis
-          
-    #command: 
-    # - dpkg-divert --local --rename --add /sbin/initctl
+  # command: 
+  #   - /bin/sed -i s:172.17.0.0/16:172.0.0.0/8:g /etc/postgresql/9.4/main/pg_hba.conf
 
 networks:
   webgis:
