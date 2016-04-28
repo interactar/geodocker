@@ -14,7 +14,7 @@ services:
       - "8080:8080"
     #Get data_dir from docker outside.
     volumes:
-       - ./data-dir:/opt/geoserver/data_dir
+       - ./data_dir:/opt/geoserver/data_dir
     #Postgres and Pogis.
     links:
       - db
