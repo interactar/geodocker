@@ -36,7 +36,7 @@ services:
     hostname: db 
     container_name: db 
     ports:
-            - "5432:5432"
+      - "5432:5432"
     volumes:
       - ./postgres_data:/var/lib/postgresql
       - ./postgres_etc/pg_hba.conf:/etc/postgresql/9.4/main/pg_hba.conf
