@@ -40,8 +40,8 @@ services:
     volumes:
       - ./postgres_data:/var/lib/postgresql
     environment:
-      - USERNAME=docker
-      - PASS=docker
+      - -e POSTGRES_USER=docker
+        -e POSTGRES_PASS=docker
     networks:
       - webgis
           
