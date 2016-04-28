@@ -35,8 +35,8 @@ services:
     image: kartoza/postgis
     hostname: db 
     container_name: db 
-    #ports:
-    #        - "27017:27017"
+    ports:
+            - "5432:5432"
     volumes:
       - ./postgres_data:/var/lib/postgresql
     environment:
