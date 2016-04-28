@@ -4,8 +4,8 @@ services:
 #By default I override your local node_modules directory.
 #This is intended for working without installing dependencies by using development images.
   
-#Geoserver
-  geoserver1:
+  #Geoserver
+  geoserver:
     image: interactar/geodocker
     container_name: geodocker
     hostname: geodocker
@@ -15,6 +15,9 @@ services:
     #Get data_dir from docker outside.
     volumes:
        - ./data-dir:/opt/geoserver/data_dir
+    #Postgres and Pogis.
+    links:
+      - db
     networks:
       - webgis
     environment:
@@ -26,9 +29,24 @@ services:
       - PATH $GDAL_PATH:$PATH
       - LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/lib/jni:/usr/share/java
       - DEBIAN_FRONTEND=noninteractive
-
-  #    command: 
-            # - dpkg-divert --local --rename --add /sbin/initctl
+  
+  
+  db:
+    image: kartoza/postgis
+    hostname: db 
+    container_name: db 
+    #ports:
+    #        - "27017:27017"
+    volumes:
+      - ./postgres_data:/var/lib/postgresql
+    environment:
+      - USERNAME=docker
+      - PASS=docker
+    networks:
+      - webgis
+          
+    #command: 
+    # - dpkg-divert --local --rename --add /sbin/initctl
 
 networks:
   webgis:

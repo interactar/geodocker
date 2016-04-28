@@ -55,9 +55,20 @@ able to clone the entire repository if you don't). To setup your SSH Keys go to:
 
 ## Workarounds (F.A.Q)
 
+### Common ERRORS:
+ERROR: Conflict. The name "/geodocker" is already in use by container 2cfd591ecc0ab541c46ef196488b8264a7c3931313ef5e5b079b60e4ff650c1c. You have to remove (or rename) that container to be able to reuse that name.
+j
+
+Fix: 
+   docker rm geodocker
+
+A useful script for clean up your docker crap:
+https://gist.github.com/jailbirt/cd3b734a13f4475205953b24f913ea85
+
+
 ###Logs
-For easier logs read you can run:
-`docker-compose up > /tmp/someArchive and then tail -f /tmp/someArchive | grep --line-buffered`
+For easier logs read you can run, please refeer tod docker logs help for more options:
+`docker logs -f geodocker
 
 ## Using a custom GeoServer data directory ##
 Make geoserver data directory and run container, change its path at docker-compose.yml for mounting it.
