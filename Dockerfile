@@ -78,9 +78,9 @@ RUN rm -rf $GEOSERVER_HOME/webapps/geoserver/WEB-INF/lib/imageio-ext-gdal-bindin
 RUN cp /usr/share/java/gdal.jar $GEOSERVER_HOME/webapps/geoserver/WEB-INF/lib/gdal.jar
 
 #Custom Libraries for Molaa
-RUN wget -c https://repo.boundlessgeo.com/release/org/geoserver/community/gs-sldservice/$GEOSERVER_VERSION/gs-sldservice-$GEOSERVER_VERSION.jar -O $GEOSERVER_HOME/lib/gs-sldservice-$GEOSERVER_VERSION.jar
+RUN wget -c https://s3.amazonaws.com/libs.molaa/geoserver-$GEOSERVER_VERSION/gs-sldservice-2.5-SNAPSHOT.jar -O $GEOSERVER_HOME/WEB-INF/lib/gs-sldservice-$GEOSERVER_VERSION.jar
 #Pending xom-1.1.jar
-RUN wget -c http://central.maven.org/maven2/xom/xom/1.1/xom-1.1.jar -O $GEOSERVER_HOME/lib/xom-1.1.jar
+RUN wget -c https://s3.amazonaws.com/libs.molaa/geoserver-2.5.3/xom-1.1.jar -O $GEOSERVER_HOME/WEB-INF/lib/xom-1.1.jar
 
 
 # Expose GeoServer's default port
