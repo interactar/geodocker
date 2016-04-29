@@ -78,7 +78,7 @@ RUN rm -rf $GEOSERVER_HOME/webapps/geoserver/WEB-INF/lib/imageio-ext-gdal-bindin
 RUN cp /usr/share/java/gdal.jar $GEOSERVER_HOME/webapps/geoserver/WEB-INF/lib/gdal.jar
 
 #Custom Libraries for Molaa
-RUN wget -c https://s3.amazonaws.com/libs.molaa/geoserver-$GEOSERVER_VERSION/gs-sldservice-2.5-SNAPSHOT.jar -O $GEOSERVER_HOME/WEB-INF/lib/gs-sldservice-$GEOSERVER_VERSION.jar
+RUN wget -c https://s3.amazonaws.com/libs.molaa/geoserver-$GEOSERVER_VERSION/gs-sldservice-2.5-SNAPSHOT.jar -O $GEOSERVER_HOME/WEB-INF/lib/gs-sldservice-2.5-SNAPSHOT.jar
 #Pending xom-1.1.jar
 RUN wget -c https://s3.amazonaws.com/libs.molaa/geoserver-2.5.3/xom-1.1.jar -O $GEOSERVER_HOME/WEB-INF/lib/xom-1.1.jar
 
