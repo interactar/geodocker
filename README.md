@@ -1,4 +1,4 @@
-#Based on repository: winsent/geoserver , thanks for starting with this. :)
+Based on winsent/geoserver.
 
 ## Table of contents
 
