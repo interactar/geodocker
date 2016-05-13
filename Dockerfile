@@ -63,11 +63,6 @@ RUN wget -c http://downloads.sourceforge.net/project/geoserver/GeoServer/$GEOSER
     unzip -o ~/geoserver-gdal-plugin.zip -d /opt/geoserver/webapps/geoserver/WEB-INF/lib/ && \
     rm ~/geoserver-gdal-plugin.zip
 
-# Get printing plugin
-RUN wget -c http://downloads.sourceforge.net/project/geoserver/GeoServer/$GEOSERVER_VERSION/extensions/geoserver-$GEOSERVER_VERSION-printing-plugin.zip -O ~/geoserver-printing-plugin.zip &&\
-    unzip ~/geoserver-printing-plugin.zip -d /opt/geoserver/webapps/geoserver/WEB-INF/lib/ && \
-    rm ~/geoserver-printing-plugin.zip
-
 # Get import plugin
 RUN wget -c http://downloads.sourceforge.net/project/geoserver/GeoServer/$GEOSERVER_VERSION/extensions/geoserver-$GEOSERVER_VERSION-importer-plugin.zip -O ~/geoserver-importer-plugin.zip &&\
     unzip -o ~/geoserver-importer-plugin.zip -d /opt/geoserver/webapps/geoserver/WEB-INF/lib/ && \
@@ -77,10 +72,27 @@ RUN wget -c http://downloads.sourceforge.net/project/geoserver/GeoServer/$GEOSER
 RUN rm -rf $GEOSERVER_HOME/webapps/geoserver/WEB-INF/lib/imageio-ext-gdal-bindings-1.9.2.jar
 RUN cp /usr/share/java/gdal.jar $GEOSERVER_HOME/webapps/geoserver/WEB-INF/lib/gdal.jar
 
+
+#Cgastrel Plugins.
+
+RUN wget -c https://s3.amazonaws.com/libs.molaa/geoserver-$GEOSERVER_VERSION/geoserver-$GEOSERVER_VERSION-printing-plugin.zip  -O ~/geoserver-printing-plugin.zip &&\
+    unzip ~/geoserver-printing-plugin.zip -d /opt/geoserver/webapps/geoserver/WEB-INF/lib/ && \
+    rm ~/geoserver-printing-plugin.zip
+
+RUN wget -c https://s3.amazonaws.com/libs.molaa/geoserver-$GEOSERVER_VERSION/geoserver-$GEOSERVER_VERSION-css-plugin.zip  -O ~/geoserver-css-plugin.zip &&\
+    unzip ~/geoserver-css-plugin.zip -d /opt/geoserver/webapps/geoserver/WEB-INF/lib/ && \
+    rm ~/geoserver-css-plugin.zip
+
+RUN wget -c https://s3.amazonaws.com/libs.molaa/geoserver-$GEOSERVER_VERSION/geoserver-$GEOSERVER_VERSION-querylayer-plugin.zip  -O ~/geoserver-querylayer-plugin.zip &&\
+    unzip ~/geoserver-querylayer-plugin.zip -d /opt/geoserver/webapps/geoserver/WEB-INF/lib/ && \
+    rm ~/geoserver-querylayer-plugin.zip
+
 #Custom Libraries for Molaa
-RUN wget -c https://repo.boundlessgeo.com/release/org/geoserver/community/gs-sldservice/$GEOSERVER_VERSION/gs-sldservice-$GEOSERVER_VERSION.jar -O $GEOSERVER_HOME/lib/gs-sldservice-$GEOSERVER_VERSION.jar
+RUN wget -c https://repo.boundlessgeo.com/release/org/geoserver/community/gs-sldservice/$GEOSERVER_VERSION/gs-sldservice-$GEOSERVER_VERSION.jar -O $GEOSERVER_HOME/WEB-INF/lib/gs-sldservice-$GEOSERVER_VERSION.jar
 #Pending xom-1.1.jar
-RUN wget -c http://central.maven.org/maven2/xom/xom/1.1/xom-1.1.jar -O $GEOSERVER_HOME/lib/xom-1.1.jar
+RUN wget -c http://central.maven.org/maven2/xom/xom/1.1/xom-1.1.jar -O $GEOSERVER_HOME/WEB-INF/lib/xom-1.1.jar
+
+#End Cgastrel requested plugins
 
 
 # Expose GeoServer's default port
