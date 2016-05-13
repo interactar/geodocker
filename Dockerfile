@@ -90,7 +90,7 @@ RUN wget -c https://s3.amazonaws.com/libs.molaa/geoserver-$GEOSERVER_VERSION/geo
 #Custom Libraries for Molaa
 RUN wget -c https://repo.boundlessgeo.com/release/org/geoserver/community/gs-sldservice/$GEOSERVER_VERSION/gs-sldservice-$GEOSERVER_VERSION.jar -O /opt/geoserver/webapps/geoserver/WEB-INF/lib/gs-sldservice-$GEOSERVER_VERSION.jar
 #Pending xom-1.1.jar
-RUN wget -c http://central.maven.org/maven2/xom/xom/1.1/xom-1.1.jar -O $GEOSERVER_HOME/WEB-INF/lib/xom-1.1.jar
+RUN wget -c http://central.maven.org/maven2/xom/xom/1.1/xom-1.1.jar -O /opt/geoserver/webapps/geoserver/WEB-INF/lib/xom-1.1.jar
 
 #End Cgastrel requested plugins
 
