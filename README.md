@@ -53,6 +53,48 @@ able to clone the entire repository if you don't). To setup your SSH Keys go to:
   * Run `docker-compose up` for starting: geoserverwriter / geoserverreader1 / geoserverreader2 / nginx for load balancing.
   The app should then be running on your docker daemon on port 8080 (On OS X you can use `boot2docker ip` to find out the IP address).
 
+# Geoserver clustering with multiple masters
+
+  Using the JMS cluster module: (http://docs.geoserver.org/stable/en/user/community/jms-cluster/index.html) 
+  you can create a scalable cluster with multiple GeoServers.
+  Illustration: (http://geoserver.geo-solutions.it/edu/en/_images/MultiMaster-MultiSlaveSharedDataDir.png)
+  
+  With this schema all servers act as master/slave and share the same data directory. 
+  The JMS cluster module implements a Message Oriented Middleware (MOM) to keep all the nodes in the cluster in synch with respect to their configurations.
+  The MOM is actually embedded and running inside each GeoServer, using multicast to find its peers and thus allowing for a clustering installation without the need to have a separate MOM deploy.
+
+  
+  ### Test cluster:
+
+   Clone this repository and run: 
+   `docker-compose -f docker-local-geoserver-cluster.yml up -d`
+   Then you can scale the available geoservers:
+   `docker-compose -f docker-local-geoserver-cluster.yml scale geoserver=n`
+
+  ### Running the cluster on the cloud:
+
+  Cloud providers like AWS don't support multicast or broadcast between instances. 
+  It's a problem because the Message Broker needs multicast for data propagation.
+  This issue can be solved with Weave Net (https://www.weave.works/docs/net/latest/introducing-weave/)
+  Weave Net allows to create a container network across multiple hosts and supports multicast.
+  To share the data directory you can use Amazon EFS or an NFS.
+
+  * Setup:
+   Install Weave Net on each Docker Host:
+   `sudo curl -L git.io/weave -o /usr/local/bin/weave ; sudo chmod +x /usr/local/bin/weave`
+   
+   Start Weave on Docker Host1: 
+   -Set the consensus parameter at the number of instances running Weave Net.
+   `weave launch --ipalloc-init consensus=2 ; eval $(weave env)`
+   
+   Start Weave on Docker Host2:
+   `weave launch --ipalloc-init consensus=2 ; eval $(weave env) ; weave connect $DockerHost1_IPADDRESS`
+
+  * Launch and scale the GeoServers on each Docker Host:
+  `docker-compose -f docker-production-geoserver-cluster.yml up -d`
+  To scale GeoServers:
+  `docker-compose -f docker-production-geoserver-cluster.yml scale geoserver=5`
+
 ## Workarounds (F.A.Q)
 
 ### Common ERRORS:
@@ -75,5 +117,6 @@ Make geoserver data directory and run container, change its path at docker-compo
 
 ## License ##
 GeoServer licensed under the [GPL](http://www.gnu.org/licenses/old-licenses/gpl-2.0.html).
+
 
 # User Feedback
