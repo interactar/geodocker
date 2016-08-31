@@ -64,14 +64,14 @@ able to clone the entire repository if you don't). To setup your SSH Keys go to:
   The MOM is actually embedded and running inside each GeoServer, using multicast to find its peers and thus allowing for a clustering installation without the need to have a separate MOM deploy.
 
   
-  ### Test cluster:
+### Test cluster:
 
    Clone this repository and run: 
    `docker-compose -f docker-local-geoserver-cluster.yml up -d`
    Then you can scale the available geoservers:
    `docker-compose -f docker-local-geoserver-cluster.yml scale geoserver=n`
 
-  ### Running the cluster on the cloud:
+### Running the cluster on the cloud:
 
   Cloud providers like AWS don't support multicast or broadcast between instances. 
   It's a problem because the Message Broker needs multicast for data propagation.
